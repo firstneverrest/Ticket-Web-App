@@ -1,22 +1,17 @@
 import express, { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
+import { RequestValidationError } from '../../errors/requestValidationError';
+import { DatabaseConnectionError } from '../../errors/databaseConnectionError';
 
 const signup = (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    // return res.status(400).json({
-    //   errors: errors.array(),
-    // });
-    if (!errors.isEmpty()) {
-      throw new Error('Invalid email or password');
-    }
+    throw new RequestValidationError(errors.array());
   }
 
   const { email, password } = req.body;
 
-  console.log('Creating a user...');
-
-  throw new Error('Error connecting to database');
+  throw new DatabaseConnectionError();
   // res.status(200).json({
   //   email,
   //   password,
