@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 const signout = (req: Request, res: Response) => {
-  res.send('currentuser');
+  req.session = null;
+  res.send({});
 };
 
 export default signout;

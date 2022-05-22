@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import { json } from 'body-parser';
 import ticketRoutes from './routes/ticketRoutes';
 import { errorHandler } from './middlewares/errorHandler';
@@ -20,7 +21,7 @@ app.use(ticketRoutes);
 app.use(errorHandler);
 
 const start = async () => {
-  if (process.env.JWT_KEY) {
+  if (!process.env.JWT_KEY) {
     throw new Error('Missing env variable JWT_KEY');
   }
 
@@ -32,9 +33,9 @@ const start = async () => {
   }
 };
 
-// app.get('*', (req, res, next) => {
-//   next(new NotFoundError());
-// });
+app.all('*', async (req, res) => {
+  throw new NotFoundError();
+});
 
 app.listen(3000, () => {
   console.log('Auth Service is running on port 3000');
