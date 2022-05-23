@@ -1,24 +1,6 @@
-import express from 'express';
-import 'express-async-errors';
-import { json } from 'body-parser';
-import ticketRoutes from './routes/ticketRoutes';
-import { errorHandler } from './middlewares/errorHandler';
-import { NotFoundError } from './errors/notFoundError';
+import app from './app';
 import mongoose from 'mongoose';
-import cookieSession from 'cookie-session';
-
-const app = express();
-app.set('trust proxy', true); // trust ingress proxy
-app.use(json());
-app.use(
-  cookieSession({
-    signed: false, // no encryption
-    secure: true, // force https
-  })
-);
-
-app.use(ticketRoutes);
-app.use(errorHandler);
+import { NotFoundError } from './errors/notFoundError';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
