@@ -1,6 +1,5 @@
 import app from './app';
 import mongoose from 'mongoose';
-import { NotFoundError } from './errors/notFoundError';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -15,9 +14,9 @@ const start = async () => {
   }
 };
 
-app.all('*', async (req, res) => {
-  throw new NotFoundError();
-});
+// app.all('*', async (req: Request, res: Response) => {
+//   throw new NotFoundError();
+// });
 
 app.listen(3000, () => {
   console.log('Auth Service is running on port 3000');

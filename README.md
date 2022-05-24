@@ -8,3 +8,8 @@
 - POST http://ticketing.dev/api/users/signin
 - POST http://ticketing.dev/api/users/signout
 - GET http://ticketing.dev/api/users/currentUser
+
+## Testing
+
+- jest
+- SuperTest - testing HTTP
